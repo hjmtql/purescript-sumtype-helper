@@ -1,6 +1,7 @@
-module Data.Union.Util
+module Data.Sum.Helper
   ( candidates
   , read
+  , write
   ) where
 
 import Prelude
@@ -13,12 +14,30 @@ import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..))
 import Data.Unfoldable1 (unfoldr1)
 
-candidates :: forall a b. Generic a b => GenericBottom b => GenericEnum b => Array a
+candidates ::
+  forall a rep.
+  Generic a rep =>
+  GenericBottom rep =>
+  GenericEnum rep =>
+  Array a
 candidates = unfoldr1 (Tuple <*> genericSucc) genericBottom
 
-read :: forall a b. Generic a b => GenericShow b => GenericBottom b => GenericEnum b => String -> Maybe a
+read ::
+  forall a rep.
+  Generic a rep =>
+  GenericShow rep =>
+  GenericBottom rep =>
+  GenericEnum rep =>
+  String -> Maybe a
 read s = findMap f candidates
   where
   f c
-    | s == genericShow c = Just c
+    | s == write c = Just c
     | otherwise = Nothing
+
+write ::
+  forall a rep.
+  Generic a rep =>
+  GenericShow rep =>
+  a -> String
+write = genericShow

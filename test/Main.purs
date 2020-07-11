@@ -4,7 +4,7 @@ import Prelude
 import Data.Generic.Rep (class Generic)
 import Data.Generic.Rep.Show (genericShow)
 import Data.Maybe (Maybe(..))
-import Data.Union.Util (candidates, read)
+import Data.Sum.Helper (candidates, read, write)
 import Effect (Effect)
 import Test.Assert (assertEqual)
 
@@ -41,4 +41,16 @@ main = do
   assertEqual
     { actual: read "red" :: Maybe Color
     , expected: Nothing
+    }
+  assertEqual
+    { actual: write Red
+    , expected: "Red"
+    }
+  assertEqual
+    { actual: write Yellow
+    , expected: "Yellow"
+    }
+  assertEqual
+    { actual: write Blue
+    , expected: "Blue"
     }

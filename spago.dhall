@@ -1,10 +1,9 @@
-{ name = "unionutil"
+{ name = "generic-sumtype-helper"
 , dependencies =
   [ "assert"
   , "console"
   , "effect"
   , "generics-rep"
-  , "psci-support"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
